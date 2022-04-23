@@ -5,8 +5,43 @@ drawn_sketch= " ";
 answer_holder= " ";
 var score= 0;
 
-random_number= Math.floor((Math.random()*array_1.length)+1);
+random_number= Math.floor((Math.random()*quick_draw_data_set.length)+1);
 console.log(random_number);
-Element_of_array= array_1[random_no];
-sketch= random_number;
+sketch= quick_draw_data_set[random_number];
 document.getElementById("sketch_drawn").innerHTML="Sketch To Be Drawn: " + sketch;
+function draw(){
+    check_sketch();
+    if (drawn_sketch== sketch){
+        answer_holder= "set";
+        score= score+1;
+        document.getElementById("score").innerHTML= score;
+    }
+}
+function check_sketch(){
+    timer_counter= timer_counter+1;
+    document.getElementById("timer").innerHTML= "Timer: " + timer_counter;
+    console.log(timer_counter);
+    if (timer_counter > 400){
+        timer_counter=0;
+        timer_check= "completed";
+    }
+    //or answer_holder variable value is equal to “set”//
+    if (timer_check== "completed" || answer_holder== "set"){
+        timer_check= " ";
+        answer_holder= " ";
+        update_canvas();
+    }
+}
+function update_canvas(){
+    background("white");
+    
+    random_number= Math.floor(Math.random()*quick_draw_data_set.length);
+    console.log(random_number);
+    sketch= quick_draw_data_set[random_number];
+    document.getElementById("sketch_drawn").innerHTML= "sketch to be drawn: " + sketch;
+}
+function setup(){
+    canvas= createCanvas(280,280);
+    canvas.center();
+    background("white");
+}
